@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     telephone: DataTypes.STRING,
     active: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     }
   },{
     hooks:{
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
 
        beforeUpdate(user) {
         {
-       return bcrypt.hash(user.password, 10)
+       return bcrypt.hash(user.password, 1)
         .then((hashedPassword)=> {
           // Store hash in your password DB.
            user.password = hashedPassword ;
@@ -49,12 +49,12 @@ module.exports = (sequelize, DataTypes) => {
     });
       
   };
-  User.prototype.verifyPassword = function(password){
+      User.prototype.verifyPassword = function(password){
         return bcrypt.compare(password, this.password)
         .then((result)=>{
-           console.log(')))))(((((', result)
-           console.log(')))))(((((', password)
-           console.log(')))))(((((', this.password)
+          console.log('()()()()()', result)
+          console.log('()()()()()', password)
+          console.log('()()()()()', this.username,this.password)
           return result;
         });
       },
